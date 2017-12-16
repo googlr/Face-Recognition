@@ -46,7 +46,8 @@ A = train_data - M
 
 L = np.dot( A.transpose(), A)
 W, V = LA.eig(L)
-
+print(W)
+print(V)
 U = np.dot(A, V)
 # print(U.shape)
 
@@ -74,7 +75,8 @@ file_test = ["01.centerlight",
 				"14.happy",
 				"14.normal",
 				"14.sad",
-				"15.normal"]
+				"15.normal",
+				"apple1_gray"]
 
 # Euclidean distance
 def dist(omega_a, omega_b):
@@ -98,7 +100,10 @@ for i in range(0, test_size):
 	I = ( test.reshape((row*col,1)) - mean_face )
 	omega_I = np.dot(U.transpose(), I)
 	I_R = np.dot(U, omega_I)
-	print(i)
+
+	d0 = dist(I_R, I)
+	print("d0 = %d" % (d0))
+	# print(i)
 	# print(I_R.shape)
 	# plt_face(I_R)
 	# Computer dist(omega_I, omega[:,i])
@@ -106,8 +111,8 @@ for i in range(0, test_size):
 	for j in range(0, train_size):
 		dist_i_j = dist(omega_I, omega[:,j].reshape((omega_I.shape)))
 		distance.append(dist_i_j)
-		if dist_i_j < i:
-			print("i is classified as: %d", j)
+		# if dist_i_j < 1:
+			# print("i is classified as: %d", j)
 	print(distance)
 
 
